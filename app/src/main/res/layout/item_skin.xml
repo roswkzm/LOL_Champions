@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import alias="urlHelper"
+            type="com.example.champions.util.UrlHelperKt"/>
+
+        <variable
+            name="skin"
+            type="com.example.champions.model.ChampionDetail.Skin" />
+
+        <variable
+            name="championId"
+            type="String" />
+
+        <variable
+            name="viewModel"
+            type="com.example.champions.ui.detail.DetailViewModel" />
+
+    </data>
+
+    <com.jackandphantom.carouselrecyclerview.view.ReflectionViewContainer
+        android:layout_width="120dp"
+        android:layout_height="360dp"
+        app:reflect_relativeDepth="0.5"
+        app:reflect_gap="0dp"
+        android:onClick="@{() -> viewModel.clickEvent(championId, skin.num, skin.name)}">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="240dp"
+            glide_default="@{urlHelper.getSkinImageUrl(championId, skin.num)}"
+            android:scaleType="fitXY"
+            android:id="@+id/image"
+            tools:src="@drawable/test_skin_image"/>
+    </com.jackandphantom.carouselrecyclerview.view.ReflectionViewContainer>
+
+</layout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="skinName"
+            type="String" />
+
+        <variable
+            name="championId"
+            type="String" />
+
+        <variable
+            name="skinNum"
+            type="int" />
+
+        <import
+            alias="urlHelper"
+            type="com.example.champions.util.UrlHelperKt" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent">
+
+        <TextView
+            android:id="@+id/skinsName"
+            style="@style/TextStyle.SkinName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{skinName}"
+            tools:text="Skin Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="350dp"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/skinsName">
+
+            <ImageView
+                glide_default="@{urlHelper.getSkinImageUrl(championId,skinNum)}"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                tools:src="@drawable/test_skin_image" />
+
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

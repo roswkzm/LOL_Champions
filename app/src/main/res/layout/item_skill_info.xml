@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import alias="urlHelper"
+            type="com.example.champions.util.UrlHelperKt"/>
+
+        <variable
+            name="skillInfo"
+            type="com.example.champions.model.ChampionDetail.Spell" />
+
+        <variable
+            name="command"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkNavy"
+        android:padding="12dp">
+
+
+        <LinearLayout
+            android:id="@+id/image_linearlayout"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/ic_launcher_round"
+                glide_default="@{urlHelper.getSkillImageUrl(skillInfo.id)}"/>
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/TextStyle.Keyword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{command}"
+                tools:text="Q" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_linearlayout"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/TextStyle.Title.Spell"
+            android:text="@{skillInfo.name}"
+            tools:text="Champion Skill Name"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_linearlayout"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            style="@style/TextStyle.Description"
+            android:text="@{skillInfo.description}"
+            tools:text="Champion Skill Description"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
