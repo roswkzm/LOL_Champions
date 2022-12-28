@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.example.champions.R
 import com.example.champions.databinding.ActivityMainBinding
 import com.example.champions.repository.MainRepository
@@ -44,7 +45,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         binding.mainChampionRecyclerView.adapter = championAdapter
         binding.mainChampionRecyclerView.setHasFixedSize(true)
 
-        binding.editText.addTextChangedListener(object : TextWatcher{
+        val animator = binding.mainChampionRecyclerView?.itemAnimator     //리사이클러뷰 애니메이터 get
+        if (animator is SimpleItemAnimator){          //아이템 애니메이커 기본 하위클래스
+            animator.supportsChangeAnimations = false  //애니메이션 값 false (리사이클러뷰가 화면을 다시 갱신 했을때 뷰들의 깜빡임 방지)
+        }
+
+        binding.btnSearch.setOnClickListener {
+            showSearchLayout()
+        }
+
+        binding.btnBack.setOnClickListener {
+            hideSearchLayout()
+        }
+
+        binding.etSearch.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -77,5 +91,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             intent.putExtra(DetailActivity.CHAMPION_ID_KEY, it)
             startActivity(intent)
         })
+    }
+
+    private fun showSearchLayout(){
+        binding.initLayout.visibility = View.GONE
+        binding.searchLayout.visibility = View.VISIBLE
+        binding.etSearch.requestFocus()
+    }
+
+    private fun hideSearchLayout(){
+        binding.searchLayout.visibility = View.GONE
+        binding.etSearch.setText("")
+        binding.initLayout.visibility = View.VISIBLE
     }
 }
