@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,19 +50,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                Log.d("ㅎㅇㅎㅇ", p0.toString())
+                championAdapter.searchChampions(p0.toString().lowercase(Locale.getDefault()))
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
             }
 
         })
     }
 
     private fun observeViewModel() {
-        mainViewModel.apiResult.observe(this, Observer {
-            mainViewModel.apiResult.value?.let { it1 -> championAdapter.getItemData(it1) }
+        mainViewModel.apiResult.observe(this, Observer { championData ->
+            championData?.let { it -> championAdapter.setInitItemData(it) }
         })
 
         mainViewModel.mainActivityException.observe(this, Observer {

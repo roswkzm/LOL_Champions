@@ -16,7 +16,8 @@ import com.example.champions.model.Champion
 import com.example.champions.ui.detail.DetailActivity
 
 class ChampionAdapter(private val viewModelStoreOwner: ViewModelStoreOwner) : RecyclerView.Adapter<ChampionAdapter.CustomViewHolder>() {
-    var championData : List<Champion> = listOf()
+    var initChampionData : List<Champion> = listOf()
+    private var championData : ArrayList<Champion> = arrayListOf()
 
     class CustomViewHolder(val binding : ItemMainRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root){
     }
@@ -37,8 +38,23 @@ class ChampionAdapter(private val viewModelStoreOwner: ViewModelStoreOwner) : Re
         return championData.size
     }
 
-    fun getItemData(item : List<Champion>){
-        championData = item
+    fun setInitItemData(item : List<Champion>){
+        initChampionData = item
+        championData.addAll(initChampionData)
+        notifyDataSetChanged()
+    }
+
+    fun searchChampions(query : String) {
+        championData.clear()
+        if (query.isNullOrEmpty()){
+            championData.addAll(initChampionData)
+        } else {
+            for (champion in initChampionData) {
+                if (champion.name.lowercase().contains(query)) {
+                    championData.add(champion)
+                }
+            }
+        }
         notifyDataSetChanged()
     }
 }
